@@ -9,6 +9,7 @@ pydantic = {extras = ["email"], version = "^2.10.6"}
 pydantic-settings = "^2.7.1"
 sqlalchemy = {extras = ["asyncio"], version = "^2.0.38"}
 alembic = "^1.14.1"
+asyncpg = "^0.30.0"
 
 [tool.poetry.group.dev.dependencies]
 black = "^25.1.0"
