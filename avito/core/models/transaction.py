@@ -1,15 +1,18 @@
-from sqlalchemy import Column, Integer, String, ForeignKey
+from sqlalchemy import Column, Integer, ForeignKey
 from sqlalchemy.orm import relationship
-from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.dialects.postgresql import UUID
+from .base import Base
 
-Base = declarative_base()
 
 class Transaction(Base):
-    __tablename__ = "transactions"
-
     id = Column(Integer, primary_key=True, index=True)
-    from_user_id = Column(Integer, ForeignKey("users.id"))
-    to_user_id = Column(Integer, ForeignKey("users.id"))
+    from_user_id = Column(UUID(as_uuid=True), ForeignKey("users.id"))
+    to_user_id = Column(UUID(as_uuid=True), ForeignKey("users.id"))
     amount = Column(Integer)
 
-    user = relationship("User", back_populates="transactions")
+    from_user = relationship(
+        "User", foreign_keys=[from_user_id], backref="outgoing_transactions"
+    )
+    to_user = relationship(
+        "User", foreign_keys=[to_user_id], backref="incoming_transactions"
+    )

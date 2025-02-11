@@ -1,14 +1,13 @@
-from sqlalchemy import Column, Integer, String, ForeignKey
+from sqlalchemy import Column, ForeignKey, Integer
+from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import relationship
-from sqlalchemy.ext.declarative import declarative_base
+from .base import Base
 
-Base = declarative_base()
 
 class Purchase(Base):
-    __tablename__ = "purchases"
-
     id = Column(Integer, primary_key=True, index=True)
-    user_id = Column(Integer, ForeignKey("users.id"))
+    user_id = Column(UUID(as_uuid=True), ForeignKey("users.id"))
     merch_item_id = Column(Integer, ForeignKey("merch_items.id"))
 
     user = relationship("User", back_populates="purchases")
+    merch_item = relationship("MerchItem", backref="purchases")

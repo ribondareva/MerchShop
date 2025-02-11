@@ -1,15 +1,21 @@
-from sqlalchemy import Column, Integer, String, ForeignKey
-from sqlalchemy.orm import relationship
-from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.dialects.postgresql import UUID
+import uuid
 
-Base = declarative_base()
+from .base import Base
+from sqlalchemy import Index
+from sqlalchemy import Column, String, BigInteger
+from sqlalchemy.orm import relationship
 
 
 class User(Base):
-    __tablename__ = "users"
-
-    id = Column(Integer, primary_key=True, index=True)
-    balance = Column(Integer, default=1000)  # Начальный баланс 1000 монет
-    hashed_password = Column(String)
-    transactions = relationship("Transaction", back_populates="user")
+    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    username = Column(String(50), unique=True, index=True)
+    balance = Column(BigInteger, default=1000)  # Начальный баланс 1000 монет
+    hashed_password = Column(String(128))
+    transactions = relationship(
+        "Transaction", back_populates="user", foreign_keys="[Transaction.from_user_id]"
+    )
     purchases = relationship("Purchase", back_populates="user")
+    __table_args__ = (
+        Index("idx_users_username", "username"),
+    )  # Индекс для быстрого поиска
