@@ -5,6 +5,7 @@ __all__ = (
     "Purchase",
     "MerchItem",
     "db_helper",
+    "AccessToken",
 )
 
 # Импортируем все модели, чтобы Alembic знал о них
@@ -14,3 +15,4 @@ from .purchase import Purchase
 from .merch import MerchItem
 from .base import Base
 from .db_helper import db_helper
+from .access_token import AccessToken
