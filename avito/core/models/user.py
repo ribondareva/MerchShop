@@ -7,6 +7,7 @@ from sqlalchemy import Column, String, BigInteger, Boolean
 from sqlalchemy.orm import relationship
 from uuid import uuid4
 
+from ..types.user_id import UserIDType
 
 if TYPE_CHECKING:
     from sqlalchemy.ext.asyncio import AsyncSession
@@ -14,7 +15,7 @@ if TYPE_CHECKING:
 
 class User(
     Base,
-    SQLAlchemyBaseUserTable,
+    SQLAlchemyBaseUserTable[UserIDType],
 ):
     __tablename__ = "users"
     id = Column(
