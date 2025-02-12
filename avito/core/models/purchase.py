@@ -10,4 +10,4 @@ class Purchase(Base):
     merch_item_id = Column(Integer, ForeignKey("merch_items.id"), nullable=False)
 
     user = relationship("User", back_populates="purchases")
-    merch_item = relationship("MerchItem", backref="purchases")
+    merch_item = relationship("MerchItem", back_populates="purchases")
