@@ -24,11 +24,12 @@ async def lifespan(app: FastAPI):
     # startup
     yield
     # shutdown
-    print("dispose engine")
     await db_helper.dispose()
 
 
 main_app = FastAPI(
+    title="API Avito shop",
+    version="1.0.0",
     default_response_class=ORJSONResponse,
     lifespan=lifespan,
 )

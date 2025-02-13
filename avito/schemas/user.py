@@ -1,8 +1,8 @@
 import uuid
 from typing import Optional
 
-from pydantic import BaseModel, ConfigDict
-from uuid import UUID
+from pydantic import ConfigDict
+from pydantic import EmailStr
 from fastapi_users import schemas
 
 
@@ -13,7 +13,9 @@ class UserRead(schemas.BaseUser[uuid.UUID]):
 
 class UserCreate(schemas.BaseUserCreate):
     username: str
+    email: Optional[EmailStr] = None
 
 
 class UserUpdate(schemas.BaseUserUpdate):
     username: Optional[str]
+    email: Optional[EmailStr] = None
