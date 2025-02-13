@@ -36,3 +36,9 @@ router.include_router(
         UserRead,
     ),
 )
+
+# /forgot-password
+# /reset-password
+router.include_router(
+    router=fastapi_users.get_reset_password_router(),
+)
