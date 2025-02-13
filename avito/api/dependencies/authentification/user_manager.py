@@ -2,7 +2,7 @@ from typing import Annotated, TYPE_CHECKING
 
 from fastapi import Depends
 
-from api.dependencies.users import get_users_db
+from api.dependencies.authentification.users import get_users_db
 from core.authentication.user_manager import UserManager
 
 
