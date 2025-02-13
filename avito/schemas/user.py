@@ -1,15 +1,19 @@
+import uuid
+from typing import Optional
+
 from pydantic import BaseModel, ConfigDict
 from uuid import UUID
+from fastapi_users import schemas
 
 
-class UserBase(BaseModel):
+class UserRead(schemas.BaseUser[uuid.UUID]):
+    username: str
+    model_config = ConfigDict(from_attributes=True)
+
+
+class UserCreate(schemas.BaseUserCreate):
     username: str
 
 
-class UserCreate(UserBase):
-    hashed_password: str
-
-
-class UserRead(UserBase):
-    model_config = ConfigDict(from_attributes=True)
-    id: UUID
+class UserUpdate(schemas.BaseUserUpdate):
+    username: Optional[str]
