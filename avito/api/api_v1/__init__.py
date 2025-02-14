@@ -3,8 +3,10 @@ from fastapi.security import HTTPBearer
 
 from core.config import settings
 from .auth import router as auth_router
-
+from .info import router as info_router
 from .users import router as users_router
+from .send_coin import router as send_coin_router
+from .buy import router as buy_router
 
 
 http_bearer = HTTPBearer(auto_error=False)
@@ -14,3 +16,6 @@ router = APIRouter(
 )
 router.include_router(auth_router)
 router.include_router(users_router)
+router.include_router(info_router)
+router.include_router(send_coin_router)
+router.include_router(buy_router)
