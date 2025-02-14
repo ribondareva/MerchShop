@@ -22,6 +22,7 @@ main_app = FastAPI(
     openapi_url="/openapi.json",
     default_response_class=ORJSONResponse,
     lifespan=lifespan,
+    debug=False,
 )
 main_app.include_router(
     api_router,
