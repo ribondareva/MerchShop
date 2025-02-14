@@ -54,29 +54,3 @@ class UserManager(UUIDIDMixin, BaseUserManager[User, uuid.UUID]):
             user.id,
             token,
         )
-
-    async def create(
-        self,
-        user_create: UserCreate,
-        safe: bool = False,
-        request: Optional["Request"] = None,
-    ) -> User:
-        # Не проверяем email, только username
-        await self.validate_username(
-            user_create.username
-        )  # Проверка уникальности username
-        return await super().create(user_create, safe, request)
-
-    # Убираем работу с email
-    async def validate_username(self, username: str):
-        user = await self.get_by_username(username)
-        if user:
-            raise ValueError("Username already taken")
-
-    @staticmethod
-    async def get_by_username(username: str) -> User | None:
-        query = await db_helper.session_factory().execute(
-            select(User).where(User.username == username)
-        )
-        result = query.scalar_one_or_none()
-        return result
