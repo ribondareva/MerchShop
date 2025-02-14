@@ -12,6 +12,9 @@ class ApiV1Prefix(BaseModel):
     prefix: str = ""
     auth: str = "/auth"
     users: str = "/users"
+    send_coin: str = "/sendCoin"
+    buy: str = "/buy"
+    info: str = "/info"
 
 
 class ApiPrefix(BaseModel):
