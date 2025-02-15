@@ -14,6 +14,7 @@ __all__ = (
     "InfoResponse",
 )
 
+
 # Импортируем все модели, чтобы Alembic знал о них
 from .user import User
 from .transaction import Transaction
@@ -28,3 +29,4 @@ from schemas.responses import (
     CoinHistory,
     InfoResponse,
 )
+from schemas.requests import BuyMerchRequest, TransferCoinsRequest
