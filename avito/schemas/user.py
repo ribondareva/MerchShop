@@ -13,9 +13,9 @@ class UserRead(schemas.BaseUser[uuid.UUID]):
 
 class UserCreate(schemas.BaseUserCreate):
     username: str
-    # email: Optional[EmailStr]
+    email: Optional[EmailStr] = None
 
 
 class UserUpdate(schemas.BaseUserUpdate):
     username: Optional[str]
-    # email: Optional[EmailStr]
+    email: Optional[EmailStr] = None

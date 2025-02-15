@@ -1,6 +1,6 @@
 import logging
 import uuid
-from typing import Optional, TYPE_CHECKING
+from typing import Optional
 from fastapi_users import BaseUserManager, UUIDIDMixin
 from sqlalchemy import select
 
@@ -8,6 +8,8 @@ from core.config import settings
 from core.models import User, db_helper
 from passlib.context import CryptContext
 from fastapi import Request, HTTPException
+
+from schemas.user import UserCreate
 
 log = logging.getLogger(__name__)
 
@@ -59,13 +61,29 @@ class UserManager(UUIDIDMixin, BaseUserManager[User, uuid.UUID]):
             token,
         )
 
-    async def get_by_username(self, username: str) -> User:
+    async def get_by_username(self, username: str) -> Optional[User]:
+        # Используем сессию для выполнения запроса
         async for session in db_helper.session_getter():
-            user = await session.execute(select(User).filter(User.username == username))
-            user = user.scalar_one_or_none()
-            if not user:
-                raise HTTPException(status_code=404, detail="User not found")
+            result = await session.execute(
+                select(User).filter(User.username == username)
+            )
+            user = result.scalar_one_or_none()  # Получаем первого или None
             return user
+
+    async def create(self, user_create: UserCreate) -> User:
+        # Хэшируем пароль с использованием Argon2id
+        hashed_password = self.pwd_context.hash(user_create.password)
+
+        # Создаем нового пользователя
+        user = User(username=user_create.username, hashed_password=hashed_password)
+
+        # Добавляем пользователя в базу данных
+        async for session in db_helper.session_getter():
+            session.add(user)
+            await session.commit()
+            await session.refresh(user)  # Обновляем пользователя после коммита
+
+        return user
 
     async def verify_password(self, password: str, hashed_password: str) -> bool:
         # Проверяем пароль с использованием Argon2id

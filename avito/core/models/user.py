@@ -24,7 +24,7 @@ class User(
         default=uuid4,
     )
     username = Column(String(50), unique=True, index=True, nullable=False)
-    email = Column(String(255), nullable=False)
+    email = Column(String(255), nullable=True)
     balance = Column(
         BigInteger, nullable=False, server_default="1000"
     )  # Начальный баланс 1000 монет
