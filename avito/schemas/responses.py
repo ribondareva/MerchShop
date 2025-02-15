@@ -32,3 +32,13 @@ class ErrorResponse(BaseModel):
 
     class Config:
         json_schema_extra = {"example": {"errors": "Произошла ошибка."}}
+
+
+class AuthResponse(BaseModel):
+    access_token: str = Field(..., description="JWT токен для аутентификации.")
+    token_type: str = Field(..., description="Тип токена, обычно 'bearer'.")
+
+    class Config:
+        json_schema_extra = {
+            "example": {"access_token": "<JWT_TOKEN>", "token_type": "bearer"}
+        }
