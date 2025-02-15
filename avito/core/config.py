@@ -68,6 +68,7 @@ class Settings(BaseSettings):
     api: ApiPrefix = ApiPrefix()
     db: DatabaseConfig
     access_token: AccessToken
+    jwt_secret_key: str
 
 
 settings = Settings()
