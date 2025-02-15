@@ -9,7 +9,7 @@ from core.models import db_helper
 from core.models import User
 from schemas.requests import TransferCoinsRequest
 from schemas.transaction import TransactionResponse
-
+from schemas.responses import ErrorResponse
 
 router = APIRouter(
     prefix=settings.api.v1.send_coin,
@@ -32,30 +32,19 @@ router = APIRouter(
         },
         400: {
             "description": "Неверный запрос.",
-            "content": {
-                "application/json": {
-                    "schema": {"$ref": "#/components/schemas/ErrorResponse"},
-                    "example": {"errors": "Неверный запрос."},
-                }
-            },
+            "model": ErrorResponse,
         },
         401: {
             "description": "Неавторизован.",
-            "content": {
-                "application/json": {
-                    "schema": {"$ref": "#/components/schemas/ErrorResponse"},
-                    "example": {"errors": "Требуется авторизация."},
-                }
-            },
+            "model": ErrorResponse,
+        },
+        404: {
+            "description": "Получатель не найден.",
+            "model": ErrorResponse,
         },
         500: {
             "description": "Внутренняя ошибка сервера.",
-            "content": {
-                "application/json": {
-                    "schema": {"$ref": "#/components/schemas/ErrorResponse"},
-                    "example": {"errors": "Произошла ошибка на сервере."},
-                }
-            },
+            "model": ErrorResponse,
         },
     },
 )
