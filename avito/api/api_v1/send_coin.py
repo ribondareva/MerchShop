@@ -7,9 +7,7 @@ from core.config import settings
 from core.models import Transaction
 from core.models import db_helper
 from core.models import User
-from core.models.requests import TransferCoinsRequest
-
-
+from schemas.requests import TransferCoinsRequest
 from schemas.transaction import TransactionResponse
 
 
@@ -28,7 +26,7 @@ router = APIRouter(
             "description": "Успешный ответ.",
             "content": {
                 "application/json": {
-                    "schema": {"$ref": "#/definitions/TransactionResponse"}
+                    "schema": {"$ref": "#/components/schemas/TransactionResponse"}
                 }
             },
         },
@@ -36,7 +34,7 @@ router = APIRouter(
             "description": "Неверный запрос.",
             "content": {
                 "application/json": {
-                    "schema": {"$ref": "#/definitions/ErrorResponse"},
+                    "schema": {"$ref": "#/components/schemas/ErrorResponse"},
                     "example": {"errors": "Неверный запрос."},
                 }
             },
@@ -45,7 +43,7 @@ router = APIRouter(
             "description": "Неавторизован.",
             "content": {
                 "application/json": {
-                    "schema": {"$ref": "#/definitions/ErrorResponse"},
+                    "schema": {"$ref": "#/components/schemas/ErrorResponse"},
                     "example": {"errors": "Требуется авторизация."},
                 }
             },
@@ -54,7 +52,7 @@ router = APIRouter(
             "description": "Внутренняя ошибка сервера.",
             "content": {
                 "application/json": {
-                    "schema": {"$ref": "#/definitions/ErrorResponse"},
+                    "schema": {"$ref": "#/components/schemas/ErrorResponse"},
                     "example": {"errors": "Произошла ошибка на сервере."},
                 }
             },

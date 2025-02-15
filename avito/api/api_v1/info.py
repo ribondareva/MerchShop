@@ -1,10 +1,10 @@
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends
 
 from api.api_v1.fastapi_users_router import fastapi_users
 from core.config import settings
 from core.models import User, Purchase, Transaction, db_helper
 
-from core.models.responses import InfoResponse
+from schemas.responses import InfoResponse
 
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.future import select
@@ -22,14 +22,16 @@ router = APIRouter(
         200: {
             "description": "Успешный ответ.",
             "content": {
-                "application/json": {"schema": {"$ref": "#/definitions/InfoResponse"}}
+                "application/json": {
+                    "schema": {"$ref": "#/components/schemas/InfoResponse"}
+                }
             },
         },
         400: {
             "description": "Неверный запрос.",
             "content": {
                 "application/json": {
-                    "schema": {"$ref": "#/definitions/ErrorResponse"},
+                    "schema": {"$ref": "#/components/schemas/ErrorResponse"},
                     "example": {"errors": "Неверный запрос."},
                 }
             },
@@ -38,7 +40,7 @@ router = APIRouter(
             "description": "Неавторизован.",
             "content": {
                 "application/json": {
-                    "schema": {"$ref": "#/definitions/ErrorResponse"},
+                    "schema": {"$ref": "#/components/schemas/ErrorResponse"},
                     "example": {"errors": "Требуется авторизация."},
                 }
             },
@@ -47,7 +49,7 @@ router = APIRouter(
             "description": "Внутренняя ошибка сервера.",
             "content": {
                 "application/json": {
-                    "schema": {"$ref": "#/definitions/ErrorResponse"},
+                    "schema": {"$ref": "#/components/schemas/ErrorResponse"},
                     "example": {"errors": "Произошла ошибка на сервере."},
                 }
             },
