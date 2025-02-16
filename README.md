@@ -59,5 +59,5 @@
 ```
 2. **Запустите контейнер:**
 ```bash
-  docker run -d --name avito -p 8080:8080 --env-file .env avito
+  docker run -d --name avito -p 8080:8080 --env-file ./avito/.env avito
 ```
