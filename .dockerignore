@@ -1,0 +1,20 @@
+# Исключаем виртуальные окружения
+venv/
+.env/
+
+# Кеши Python
+__pycache__/
+*.pyc
+
+# Кеши тестов
+.pytest_cache/
+.coverage
+# Git-папка
+.git/
+
+# Локальные настройки IDE
+.idea/
+.vscode/
+
+# Локальные логи
+*.log
