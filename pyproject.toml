@@ -1,5 +1,8 @@
 [tool.poetry]
-package-mode = false
+name = "avito"
+version = "0.1.0"
+description = "Сервис для внутреннего магазина мерча в Авито"
+authors = ["Maria Bondareva <mnikitina2001@gmail.com>"]
 
 [tool.poetry.dependencies]
 python = "^3.12"
@@ -11,12 +14,11 @@ sqlalchemy = {extras = ["asyncio"], version = "^2.0.38"}
 alembic = "^1.14.1"
 asyncpg = "^0.30.0"
 orjson = "^3.10.15"
-black = "^25.1.0"
 fastapi-users = {extras = ["sqlalchemy"], version = "^14.0.1"}
 argon2-cffi = "^23.1.0"
-pytest = "^8.3.4"
-pytest-asyncio = "^0.25.3"
+
 
 [tool.poetry.group.dev.dependencies]
 black = "^25.1.0"
-
+pytest = "^8.3.4"
+pytest-asyncio = "^0.25.3"
