@@ -15,7 +15,7 @@ router = APIRouter(
 
 
 @router.post(
-    "/login",
+    "/",
     summary="Аутентификация и получение JWT токена.",
     responses={
         200: {
