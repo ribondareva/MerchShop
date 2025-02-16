@@ -12,14 +12,14 @@ RUN curl -sSL https://install.python-poetry.org | python3 -
 ENV PATH="/root/.local/bin:$PATH"
 
 # Устанавливаем рабочую директорию
-WORKDIR /app
+WORKDIR /test
 
 # Копируем зависимости и устанавливаем их
-COPY pyproject.toml poetry.lock /app/
+COPY pyproject.toml poetry.lock /test/
 RUN poetry install --only main --no-root
 
 # Копируем код приложения
-COPY avito /app/avito
+COPY avito /test/avito
 
 # Открываем порт (8080, как указано в задании)
 EXPOSE 8080
