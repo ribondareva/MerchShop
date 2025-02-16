@@ -54,9 +54,9 @@
 Если хотите собрать образ и запустить контейнер вручную:
 1. **Соберите образ:**
 ```bash
-  docker build -t avito-merch-app
+  docker build -t avito
 ```
 2. **Запустите контейнер:**
 ```bash
-  docker run -d --name avito-merch -p 8080:8080 --env-file .env avito-merch-app
+  docker run -d --name avito -p 8080:8080 --env-file .env avito
 ```
