@@ -34,8 +34,8 @@
 
 1. **Клонируйте репозиторий:**
 ```bash
-   git clone https://github.com/ribondareva/test.git
-   cd test
+   git clone https://github.com/ribondareva/Test.git
+   cd Test
 ```
 2. **Создайте файл .env в корневой директории (содержимое по подобию .env.template)**
 3. **Запустите проект:**
