@@ -28,7 +28,7 @@ async def create_user(
 ) -> User:
     user = await user_manager.create(
         user_create=user_create,
-        safe=False,
+        # safe=False,
     )
     return user
 
@@ -52,6 +52,12 @@ async def create_superuser(
     async with db_helper.session_factory() as session:
         async with get_users_db_context(session) as users_db:
             async with get_user_manager_context(users_db) as user_manager:
+                existing_user = await user_manager.get_by_username(username)
+                if existing_user:
+                    print(f"Пользователь с username '{username}' уже существует.")
+                    return existing_user
+
+                # Если пользователя нет, создаем нового
                 return await create_user(
                     user_manager=user_manager,
                     user_create=user_create,
