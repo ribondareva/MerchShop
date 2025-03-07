@@ -46,15 +46,19 @@ git clone https://github.com/ribondareva/Test.git
 cd Test
 ```
 2. **Создайте файл .env в корневой директории (содержимое по подобию .env.template)**
-3. **Запустите проект:**
+3. **Создайте файл .env.docker в корневой директории (содержимое по подобию .env.template, только поменять строчку на представленную ниже)**
+```bash
+APP_CONFIG__DB__URL=postgresql+asyncpg://user:pwd@db:5432/app
+```
+5. **Запустите проект:**
 ```bash
 docker-compose up --build
 ```
-4. **Приложение будет доступно по адресу:**
+5. **Приложение будет доступно по адресу:**
 ```bash
 http://localhost:8080
 ```
-5. **Документация API (Swagger UI):**
+6. **Документация API (Swagger UI):**
 ```bash
 http://localhost:8080/docs
 ```
