@@ -1,3 +1,6 @@
+import os
+from typing import ClassVar
+
 from pydantic import BaseModel
 from pydantic import PostgresDsn
 from pydantic_settings import BaseSettings, SettingsConfigDict
@@ -58,8 +61,15 @@ class AccessToken(BaseModel):
 
 
 class Settings(BaseSettings):
+    # Определяем, какой .env использовать
+    env_file: ClassVar[str] = (
+        ".env.docker" if os.getenv("DOCKER_ENV") == "true" else ".env"
+    )
+    # Логирование того, какой файл .env будет использоваться
+    print(f"Using environment file: {env_file}")
     model_config = SettingsConfigDict(
-        env_file=(".env", "avito/.env"),
+        # env_file=(".env", "avito/.env"),
+        env_file=env_file,
         case_sensitive=False,
         env_nested_delimiter="__",
         env_prefix="APP_CONFIG__",
@@ -72,3 +82,4 @@ class Settings(BaseSettings):
 
 
 settings = Settings()
+print(f"Using database: {settings.db.url}")  # Для проверки, какой URL загрузился

@@ -11,6 +11,8 @@ services:
       - "5433:5432"
     volumes:
       - pg_data:/var/lib/postgresql/data
+    networks:
+      - test_app_network
 
   fastapi_app:
     build: .
@@ -20,11 +22,14 @@ services:
       - pg
     environment:
       DATABASE_URL: postgresql://user:password@pg:5432/avito_coins
+      DOCKER_ENV: "true"
     ports:
       - "8080:8080"
     volumes:
       - .:/app
-    command: uvicorn main:app --host 0.0.0.0 --port 8080 --reload
+    entrypoint: [ "/bin/sh", "-c", "./wait-for-it.sh pg 5432 -- sh -c 'cd /app/avito && poetry run alembic -c alembic.ini upgrade head && poetry run uvicorn avito.main:main_app --host 0.0.0.0 --port 8080'" ]
+    networks:
+      - test_app_network
 
   pgadmin:
     image: dpage/pgadmin4
@@ -38,6 +43,12 @@ services:
       - "5050:80"
     depends_on:
       - pg
+    networks:
+      - test_app_network
 
 volumes:
   pg_data:
+
+networks:
+  test_app_network:
+    driver: bridge

@@ -17,6 +17,7 @@ orjson = "^3.10.15"
 fastapi-users = {extras = ["sqlalchemy"], version = "^14.0.1"}
 argon2-cffi = "^23.1.0"
 pytest-cov = "^6.0.0"
+passlib = "^1.7.4"
 
 
 [tool.poetry.group.dev.dependencies]

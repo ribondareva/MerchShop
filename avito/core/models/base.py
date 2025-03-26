@@ -9,6 +9,7 @@ class Base(DeclarativeBase):
     metadata = MetaData(
         naming_convention=settings.db.naming_convention,
     )
+    __table_args__ = {"extend_existing": True}
 
     @declared_attr.directive
     def __tablename__(cls) -> str:

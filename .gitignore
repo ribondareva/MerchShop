@@ -131,6 +131,7 @@ celerybeat.pid
 fastapi-application/.env
 .venv
 avito/.env
+avito/.env.docker
 env/
 venv/
 ENV/

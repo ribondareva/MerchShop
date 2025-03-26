@@ -1,5 +1,5 @@
 from fastapi.testclient import TestClient
-from avito.main import main_app
+from main import main_app
 
 
 client = TestClient(main_app)
