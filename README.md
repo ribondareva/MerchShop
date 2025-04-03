@@ -52,12 +52,18 @@ uvicorn main:main_app --host 0.0.0.0 --port 8080 --reload
 git clone https://github.com/ribondareva/Test.git
 cd Test
 ```
-2. **Создайте файл .env в корневой директории (содержимое по подобию .env.template)**
-3. **Создайте файл .env.docker в корневой директории (содержимое по подобию .env.template, только поменять строчку на представленную ниже)**
+3. **Создайте файл .env.docker в корневой директории (содержимое ниже)**
 ```bash
-APP_CONFIG__DB__URL=postgresql+asyncpg://user:pwd@db:5432/app
+APP_CONFIG__POSTGRES_SERVER=
+APP_CONFIG__POSTGRES_USER=
+APP_CONFIG__POSTGRES_PASSWORD=
+APP_CONFIG__POSTGRES_DB=
+# APP_CONFIG__DB__ECHO=0
+APP_CONFIG__ACCESS_TOKEN__RESET_PASSWORD_TOKEN_SECRET=
+APP_CONFIG__ACCESS_TOKEN__VERIFICATION_TOKEN_SECRET=
+APP_CONFIG__JWT_SECRET_KEY=
 ```
-5. **Запустите проект:**
+4. **Запустите проект:**
 ```bash
 docker-compose up --build
 ```
