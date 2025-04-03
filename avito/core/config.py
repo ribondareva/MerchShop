@@ -1,8 +1,7 @@
 import os
-from typing import ClassVar
+from typing import Any, ClassVar
 
-from pydantic import BaseModel
-from pydantic import PostgresDsn
+from pydantic import BaseModel, PostgresDsn, ValidationInfo, field_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
@@ -76,9 +75,27 @@ class Settings(BaseSettings):
     )
     run: RunConfig = RunConfig()
     api: ApiPrefix = ApiPrefix()
-    db: DatabaseConfig
     access_token: AccessToken
     jwt_secret_key: str
+
+    POSTGRES_SERVER: str
+    POSTGRES_USER: str
+    POSTGRES_PASSWORD: str
+    POSTGRES_DB: str
+
+    @property
+    def db(self) -> DatabaseConfig:
+        return DatabaseConfig(url=self.SQLALCHEMY_ASYNC_DATABASE_URI, echo=False)
+
+    @property
+    def SQLALCHEMY_ASYNC_DATABASE_URI(self) -> PostgresDsn:
+        return PostgresDsn.build(
+            scheme="postgresql+asyncpg",
+            username=self.POSTGRES_USER,
+            password=self.POSTGRES_PASSWORD,
+            host=self.POSTGRES_SERVER,
+            path=self.POSTGRES_DB or "",
+        )
 
 
 settings = Settings()

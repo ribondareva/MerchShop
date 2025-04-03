@@ -21,13 +21,13 @@ services:
     depends_on:
       - pg
     environment:
-      DATABASE_URL: postgresql://user:password@pg:5432/avito_coins
+      # DATABASE_URL: "postgresql+asyncpg://user:password@pg:5432/avito_coins"
       DOCKER_ENV: "true"
     ports:
       - "8080:8080"
     volumes:
       - .:/app
-    entrypoint: [ "/bin/sh", "-c", "./wait-for-it.sh pg 5432 -- sh -c 'cd /app/avito && poetry run alembic -c alembic.ini upgrade head && poetry run uvicorn avito.main:main_app --host 0.0.0.0 --port 8080'" ]
+    entrypoint: ["/bin/sh", "-c", "/wait-for-it.sh pg 5432 -- poetry run uvicorn avito.main:main_app --host 0.0.0.0 --port 8080"]    
     networks:
       - test_app_network
 

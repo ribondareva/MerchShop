@@ -1,17 +1,14 @@
 import asyncio
+import os  # Для чтения переменных окружения
 from logging.config import fileConfig
 
+from alembic import context
 from sqlalchemy import pool
 from sqlalchemy.engine import Connection
 from sqlalchemy.ext.asyncio import async_engine_from_config
 
-from alembic import context
-
-
-import os  # Для чтения переменных окружения
-
-from core.config import settings
-from core.models import Base
+from avito.core.config import settings  # noqa
+from avito.core.models import Base  # noqa
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.

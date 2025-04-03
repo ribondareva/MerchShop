@@ -1,15 +1,17 @@
 # import sys
 # from pathlib import Path
 from contextlib import asynccontextmanager
+
 import uvicorn
 from fastapi import FastAPI
 from fastapi.responses import ORJSONResponse
 
+from avito.api import router as api_router
+
 # sys.path.append(str(Path(__file__).parent.parent))
 from avito.core.config import settings
-from avito.api import router as api_router
-from avito.core.models import db_helper
 from avito.core.db_init import init_merch_items
+from avito.core.models import db_helper
 
 
 @asynccontextmanager
