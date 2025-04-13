@@ -49,8 +49,8 @@ uvicorn main:main_app --host 0.0.0.0 --port 8080 --reload
 
 1. **Клонируйте репозиторий:**
 ```bash
-git clone https://github.com/ribondareva/Test.git
-cd Test
+git clone https://github.com/ribondareva/MerchShop.git
+cd MerchShop
 ```
 3. **Создайте файл .env.docker в avito (содержимое ниже)**
 ```bash
